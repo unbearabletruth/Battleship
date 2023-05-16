@@ -53,7 +53,6 @@ class Gameboard {
     }
 
     receiveAttack(x, y){
-        console.log(typeof this.board[x][y])
         if (typeof this.board[x][y] === "object"){
             return this.board[x][y].hit();
         }
@@ -76,8 +75,15 @@ class Gameboard {
 const board = new Gameboard(10);
 board.createBoard();
 board.placeShip(9, 0, 4, "up");
-board.placeShip(4, 1, 2, "right");
 board.placeShip(1, 8, 3, "down");
+board.placeShip(0, 1, 3, "right");
+board.placeShip(4, 1, 2, "right");
+board.placeShip(4, 6, 2, "right");
+board.placeShip(8, 8, 2, "right");
+board.placeShip(4, 4, 1, "up");
+board.placeShip(9, 4, 1, "up");
+board.placeShip(7, 5, 1, "up");
+board.placeShip(0, 8, 1, "up");
 board.receiveAttack(9, 0);
 board.receiveAttack(8, 0);
 board.receiveAttack(7, 0);

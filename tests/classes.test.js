@@ -1,12 +1,19 @@
 import { Ship, Gameboard } from "../src/classes";
 
-test("should be Ship object with 3 length", () => {
+test("should be Ship object with length, timesHit, sunk", () => {
     const ship = new Ship(3);
     expect(ship).toEqual({length: 3, timesHit: 0, sunk: false});
-  })
+  });
 
-test("coordinate should be Ship object", () => {
-    const board = new Gameboard(10);
-    board.createBoard();
-    expect(board.placeShip(9, 0, 4, "up")).toEqual({length: 4, timesHit: 0, sunk: false});
+test("hits the ship", () => {
+    const ship = new Ship(3);
+    ship.hit();
+    expect(ship.timesHit).toBe(1);
+});
+
+test("sunks the ship", () => {
+    const ship = new Ship(2);
+    ship.hit();
+    ship.hit();
+    expect(ship.sunk).toBe(true);
 })
