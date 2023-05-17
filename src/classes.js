@@ -137,18 +137,12 @@ class Player {
         this.shots = [];
     }
 
-    boardInit(){
+    boardInit(fleetToPlace){
         this.board.createBoard();
-        this.board.makeCoordinates(4);
-        this.board.makeCoordinates(3);
-        this.board.makeCoordinates(3);
-        this.board.makeCoordinates(2);
-        this.board.makeCoordinates(2);
-        this.board.makeCoordinates(2);
-        this.board.makeCoordinates(1);
-        this.board.makeCoordinates(1);
-        this.board.makeCoordinates(1);
-        this.board.makeCoordinates(1);
+        for (let shipLen of fleetToPlace){
+            this.board.makeCoordinates(shipLen);
+        }
+        console.log(this.board.fleet);
         return this.board.fleet;
     }
 
@@ -175,7 +169,6 @@ class Player {
 
 function playGame(){
     let turn = "player";
-    
     while (player.board.allSunk() !== true && computer.board.allSunk() !== true){
         console.log(computer.board.allSunk())
         if (turn === "player"){
@@ -190,10 +183,7 @@ function playGame(){
             turn = "computer";
         }
         else {turn = "player"}
-        console.log(player.board.board);
-        console.log(computer.board.board);
     }
-    
     if (player.board.allSunk() === true){
         console.log("Computer wins!");
         return
@@ -205,10 +195,10 @@ function playGame(){
 }
 
 const player = new Player("Tony", new Gameboard(10));
-player.boardInit();
+player.boardInit([4,3,3,2,2,2,1,1,1,1]);
 
 const computer = new Player("Computer", new Gameboard(10));
-computer.boardInit();
+computer.boardInit([4,3,3,2,2,2,1,1,1,1]);
 
 console.log(player.board.board);
 console.log(computer.board.board);

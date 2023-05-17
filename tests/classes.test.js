@@ -88,14 +88,20 @@ describe("Gameboard class tests:", () => {
 });
 
 describe("Player class tests:", () => {
-    const player = new Player("Gamer", new Gameboard(10));
+    
     test("places all ships", () => {
-        expect(player.boardInit().length).toBe(10);
-    })
+        const player = new Player("Gamer", new Gameboard(10));
+        expect(player.boardInit([4,3,2,1]))
+        .toEqual([{length: 4, timesHit: 0, sunk: false},
+                 {length: 3, timesHit: 0, sunk: false},
+                 {length: 2, timesHit: 0, sunk: false},
+                 {length: 1, timesHit: 0, sunk: false}]);
+    });
 
     test("places Ship object", () => {
-        expect(player.boardInit()[0]).toBeInstanceOf(Ship);
-    })
+        const player = new Player("Gamer", new Gameboard(10));
+        expect(player.boardInit([4,3,2,1])[3]).toBeInstanceOf(Ship);
+    });
 
     test("makeShot returns computer coordinates to hit", () => {
         const player = new Player("Gamer", new Gameboard(10));
