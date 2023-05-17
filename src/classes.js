@@ -158,7 +158,9 @@ class Player {
 
 function playGame(){
     let turn = "player";
-    while (player.board.allSunk() !== true || computer.board.allSunk() !== true){
+    
+    while (player.board.allSunk() !== true && computer.board.allSunk() !== true){
+        console.log(computer.board.allSunk())
         if (turn === "player"){
             let coord = player.makeShot();
             computer.board.receiveAttack(coord[0], coord[1]);
@@ -171,27 +173,32 @@ function playGame(){
             turn = "computer";
         }
         else {turn = "player"}
+        console.log(player.board.board);
+        console.log(computer.board.board);
     }
-    console.log(player.board.board);
-    console.log(computer.board.board);
+    
     if (player.board.allSunk() === true){
         console.log("Computer wins!");
+        return
     }
-    else {console.log("Player wins!")}
+    else if (computer.board.allSunk() === true){
+        console.log("Player wins!");
+        return
+    }
 }
 
 const player = new Player("Tony", new Gameboard(10));
 player.board.createBoard();
 player.board.makeCoordinates(4);
 player.board.makeCoordinates(3);
-player.board.makeCoordinates(3);
+/*player.board.makeCoordinates(3);
 player.board.makeCoordinates(2);
 player.board.makeCoordinates(2);
 player.board.makeCoordinates(2);
 player.board.makeCoordinates(1);
 player.board.makeCoordinates(1);
 player.board.makeCoordinates(1);
-player.board.makeCoordinates(1);
+player.board.makeCoordinates(1);*/
 
 
 
@@ -199,14 +206,14 @@ const computer = new Player("Computer", new Gameboard(10));
 computer.board.createBoard();
 computer.board.makeCoordinates(4);
 computer.board.makeCoordinates(3);
-computer.board.makeCoordinates(3);
+/*computer.board.makeCoordinates(3);
 computer.board.makeCoordinates(2);
 computer.board.makeCoordinates(2);
 computer.board.makeCoordinates(2);
 computer.board.makeCoordinates(1);
 computer.board.makeCoordinates(1);
 computer.board.makeCoordinates(1);
-computer.board.makeCoordinates(1);
+computer.board.makeCoordinates(1);*/
 
 
 
@@ -215,6 +222,6 @@ computer.board.makeCoordinates(1);
 
 console.log(player.board.board);
 console.log(computer.board.board);
-playGame()
+playGame();
 
 export {Ship, Gameboard};
