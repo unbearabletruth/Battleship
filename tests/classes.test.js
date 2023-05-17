@@ -1,4 +1,4 @@
-import { Ship, Gameboard } from "../src/classes";
+import { Ship, Gameboard, Player } from "../src/classes";
 
 describe("Ship class tests:", () => {
     let ship;
@@ -32,15 +32,15 @@ describe("Gameboard class tests:", () => {
         board.createBoard();
     });
 
-    test("access coordinates", () => {
+    test("coordinates accessible", () => {
         for (let i = 0; i < board.size; i++) {
             for (let j = 0; j < board.size; j++) {
-                expect(board.board[i][j]).not.toEqual(null);
+                expect(board.board[i][j]).not.toEqual(undefined);
             }
         }
     });
 
-    test("makes coordinates", () => {
+    test("coordinates for ship placement", () => {
         const [x, y, len, direction] = board.makeCoordinates(3);
         expect(x).toBeGreaterThanOrEqual(0);
         expect(x).toBeLessThan(board.size);
@@ -50,15 +50,27 @@ describe("Gameboard class tests:", () => {
         expect(["up", "right"]).toContain(direction);
     });
 
-    test("tryPlace return boolean", () => {
-        expect(typeof board.tryPlace(0, 2, 3, "up") === "boolean").toBeTruthy();
+    test("placing out of bounds or on other Ship returns false", () => {
+        board.placeShip(7, 0, 2, "up")
+        expect(board.tryPlace(0, 2, 3, "up")).toBe(false);
+        expect(board.tryPlace(7, 0, 2, "up")).toBe(false);
+    });
+
+    test("placing in proper space returns true", () => {
+        board.placeShip(7, 0, 2, "up")
+        expect(board.tryPlace(7, 1, 2, "up")).toBe(true);
     });
 
     test("creates Ship object on a board", () => {
-        expect(typeof board.placeShip(7, 0, 2, "up") === "object").toBeTruthy();
+        expect(board.placeShip(7, 0, 2, "up")).toBeInstanceOf(Ship);
     });
 
-    test("receives attack", () => {
+    test("Ship obj receives hit", () => {
+        board.placeShip(7, 0, 2, "up");
+        expect(board.receiveAttack(7, 0).timesHit).toBe(1);
+    });
+
+    test("receives missed attack", () => {
         expect(board.receiveAttack(0, 0)).toBe("hit");
     });
 
@@ -73,4 +85,37 @@ describe("Gameboard class tests:", () => {
         board.receiveAttack(6, 0);
         expect(board.allSunk()).toBe(true);
     })
+});
+
+describe("Player class tests:", () => {
+    const player = new Player("Gamer", new Gameboard(10));
+    test("places all ships", () => {
+        expect(player.boardInit().length).toBe(10);
+    })
+
+    test("places Ship object", () => {
+        expect(player.boardInit()[0]).toBeInstanceOf(Ship);
+    })
+
+    test("makeShot returns computer coordinates to hit", () => {
+        const player = new Player("Gamer", new Gameboard(10));
+        expect(player.makeShot(4, 4)).toEqual([4, 4]);
+    });
+
+    test("makeShot returns player's coords to hit", () => {
+        const computer = new Player("Computer", new Gameboard(10));
+        const [x, y] = computer.makeShot();
+        expect(x).toBeGreaterThanOrEqual(0);
+        expect(x).toBeLessThan(computer.board.size);
+        expect(y).toBeGreaterThanOrEqual(0);
+        expect(y).toBeLessThan(computer.board.size);
+    });
+
+    test("properly writes shots to array", () => {
+        const computer = new Player("Computer", new Gameboard(10));
+        for (let i = 0; i < 15; i++) {
+            computer.makeShot();  
+        }
+        expect(computer.shots.length).toBe(15);
+    });
 });
