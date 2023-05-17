@@ -130,15 +130,57 @@ class Gameboard {
 }
 
 class Player {
-    constructor(board){
+    constructor(name, board){
+        this.name = name;
         this.board = board;
+        this.shots = [];
     }
 
-
+    makeShot(){
+        if (this.name !== "Computer"){
+            let x = prompt("choose x");
+            let y = prompt("choose y");
+            return [x, y];
+        }
+        let valid = false;
+        while (!valid)
+        if (this.name === "Computer"){
+            const x = Math.floor(Math.random() * this.board.size);
+            const y = Math.floor(Math.random() * this.board.size);
+            if (!this.shots.includes([x, y])){
+                this.shots.push([x, y])
+                valid = true;
+                return [x, y];
+            }
+        }
+    }
 }
 
+function playGame(){
+    let turn = "player";
+    while (player.board.allSunk() !== true || computer.board.allSunk() !== true){
+        if (turn === "player"){
+            let coord = player.makeShot();
+            computer.board.receiveAttack(coord[0], coord[1]);
+        }
+        else if (turn === "computer"){
+            let coords = computer.makeShot();
+            player.board.receiveAttack(coords[0], coords[1]);
+        }
+        if (turn === "player"){
+            turn = "computer";
+        }
+        else {turn = "player"}
+    }
+    console.log(player.board.board);
+    console.log(computer.board.board);
+    if (player.board.allSunk() === true){
+        console.log("Computer wins!");
+    }
+    else {console.log("Player wins!")}
+}
 
-const player = new Player(new Gameboard(10));
+const player = new Player("Tony", new Gameboard(10));
 player.board.createBoard();
 player.board.makeCoordinates(4);
 player.board.makeCoordinates(3);
@@ -150,9 +192,10 @@ player.board.makeCoordinates(1);
 player.board.makeCoordinates(1);
 player.board.makeCoordinates(1);
 player.board.makeCoordinates(1);
-console.log(player.board.board);
 
-const computer = new Player(new Gameboard(10));
+
+
+const computer = new Player("Computer", new Gameboard(10));
 computer.board.createBoard();
 computer.board.makeCoordinates(4);
 computer.board.makeCoordinates(3);
@@ -164,8 +207,14 @@ computer.board.makeCoordinates(1);
 computer.board.makeCoordinates(1);
 computer.board.makeCoordinates(1);
 computer.board.makeCoordinates(1);
+
+
+
+
+
+
+console.log(player.board.board);
 console.log(computer.board.board);
-
-
+playGame()
 
 export {Ship, Gameboard};
