@@ -21,6 +21,7 @@ class Gameboard {
     constructor(size){
         this.size = size;
         this.board = [];
+        this.fleet = [];
     }
 
     createBoard(){
@@ -31,12 +32,12 @@ class Gameboard {
                 this.board[i][j] = "";
             }
         }
+        return this.board;
     }
 
     makeCoordinates(len){
-        let placed = false;
-        let valid;
-        while(!placed){
+        let valid = false;
+        while(!valid){
             const direction = ["up", "right"];
             const x = Math.floor(Math.random() * this.size);
             const y = Math.floor(Math.random() * this.size);
@@ -44,7 +45,7 @@ class Gameboard {
             valid = this.tryPlace(x, y, len, randDirection);
             if (valid){
                 this.placeShip(x, y, len, randDirection);
-                placed = true;
+                return [x, y, len, randDirection];
             }
         }
     }
@@ -53,7 +54,6 @@ class Gameboard {
         let valid = false;
         if (direction === "up"){
             for (let i = 0; i < len; i++) {
-                console.log(x, y)
                 if (x - i < 0 || typeof this.board[x - i][y] === "object"){
                     return valid;
                 }
@@ -108,45 +108,64 @@ class Gameboard {
                 this.board[x][i] = newShip;
             }
         }
+        this.fleet.push(newShip);
+        return newShip;
     }
 
     receiveAttack(x, y){
         if (typeof this.board[x][y] === "object"){
             return this.board[x][y].hit();
         }
-        this.board[x][y] = "hit";
+        return this.board[x][y] = "hit";
     }
 
     allSunk(){
-        for (let i = 0; i < this.size; i++) {
-            for (let j = 0; j < this.size; j++) {
-                if (this.board[i][j] === true){
-                    return false;
-                }
-            }   
+        for (let ship of this.fleet){
+            if (ship.sunk === false){
+                return false;
+            }
         }
         return true;
     }
 }
 
+class Player {
+    constructor(board){
+        this.board = board;
+    }
 
-const board = new Gameboard(10);
-board.createBoard();
-board.makeCoordinates(4);
-board.makeCoordinates(3);
-board.makeCoordinates(3);
-board.makeCoordinates(2);
-board.makeCoordinates(2);
-board.makeCoordinates(2);
-board.makeCoordinates(1);
-board.makeCoordinates(1);
-board.makeCoordinates(1);
-board.makeCoordinates(1);
-/*board.receiveAttack(9, 0);
-board.receiveAttack(8, 0);
-board.receiveAttack(7, 0);
-board.receiveAttack(6, 0);*/
-console.log(board.board);
+
+}
+
+
+const player = new Player(new Gameboard(10));
+player.board.createBoard();
+player.board.makeCoordinates(4);
+player.board.makeCoordinates(3);
+player.board.makeCoordinates(3);
+player.board.makeCoordinates(2);
+player.board.makeCoordinates(2);
+player.board.makeCoordinates(2);
+player.board.makeCoordinates(1);
+player.board.makeCoordinates(1);
+player.board.makeCoordinates(1);
+player.board.makeCoordinates(1);
+console.log(player.board.board);
+
+const computer = new Player(new Gameboard(10));
+computer.board.createBoard();
+computer.board.makeCoordinates(4);
+computer.board.makeCoordinates(3);
+computer.board.makeCoordinates(3);
+computer.board.makeCoordinates(2);
+computer.board.makeCoordinates(2);
+computer.board.makeCoordinates(2);
+computer.board.makeCoordinates(1);
+computer.board.makeCoordinates(1);
+computer.board.makeCoordinates(1);
+computer.board.makeCoordinates(1);
+console.log(computer.board.board);
+
 
 
 export {Ship, Gameboard};
