@@ -17,7 +17,15 @@ body{
 }
 
 .board {
-    width: 320px;
-    height: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 322px;
+    height: 322px;
+    border: 1px solid black;
+}
+
+.square {
+    width: 32px;
+    height: 32px;
     border: 1px solid black;
 }

@@ -57,7 +57,7 @@ class Gameboard {
                 if (x - i < 0 || typeof this.board[x - i][y] === "object"){
                     return valid;
                 }
-                /*if (x + 1 < this.size && typeof this.board[x + 1][y] === "object"){
+                if (x + 1 < this.size && typeof this.board[x + 1][y] === "object"){
                     return valid;
                 }
                 if (x - len > 0 && typeof this.board[x - len][y] === "object"){
@@ -68,7 +68,7 @@ class Gameboard {
                 }
                 if (y + 1 < this.size && typeof this.board[x - i][y + 1] === "object"){
                     return valid;
-                }*/
+                }
             }   
             valid = true;
             return valid;
@@ -78,7 +78,7 @@ class Gameboard {
                 if (y + i >= this.size || typeof this.board[x][y + i] === "object"){
                     return valid;
                 }
-                /*if (y - 1 > 0 && typeof this.board[x][y - 1] === "object"){
+                if (y - 1 > 0 && typeof this.board[x][y - 1] === "object"){
                     return valid;
                 }
                 if (y + len < this.size && typeof this.board[x][y + len] === "object"){
@@ -89,7 +89,7 @@ class Gameboard {
                 }
                 if (x + 1 < this.size && typeof this.board[x + 1][y + i] === "object"){
                     return valid;
-                }*/ 
+                }
             }
             valid = true;
             return valid;
