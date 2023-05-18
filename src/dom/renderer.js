@@ -1,4 +1,5 @@
-import { Ship, player } from '../classes';
+import { Ship, computer, Player } from '../classes';
+import { playRound } from './playGame';
 
 function renderBoard(player){
     console.log(player)
@@ -9,6 +10,7 @@ function renderBoard(player){
             let square = document.createElement("div");
             square.classList.add("square");
             square.id = `${i}${j}${player.name}`
+            square.dataset.id = `${i}${j}`
             board.appendChild(square);
         }   
     }
@@ -22,7 +24,7 @@ function renderShips(player){
             if (player.board.board[i][j] instanceof Ship){
                 let square = document.getElementById(`${i}${j}${player.name}`)
                 if (player.board.board[i][j].length === 4){
-                    square.style.background = "red";
+                    square.style.background = "yellow";
                 }else if (player.board.board[i][j].length === 3){
                     square.style.background = "green";
                 }else if (player.board.board[i][j].length === 2){
@@ -35,7 +37,25 @@ function renderShips(player){
     }
 }
 
+function renderHit(x, y , hitOrMiss){
+    let hitSquare = document.getElementById(`${x}${y}${computer.name}`);
+    if (hitOrMiss === "hit"){
+        hitSquare.style.background = "red";
+    } else {
+        hitSquare.style.background = "orange";
+    }
+}
+
+function clickToHit(){
+    for (let i = 0; i < computer.board.size; i++) {
+        for (let j = 0; j < computer.board.size; j++) {
+            let square = document.getElementById(`${i}${j}${computer.name}`);
+            square.addEventListener("click", () => {
+                playRound(i, j);
+            });
+        }   
+    }
+}
 
 
-
-export {renderBoard, renderShips}
+export {renderBoard, renderShips, clickToHit, renderHit}
