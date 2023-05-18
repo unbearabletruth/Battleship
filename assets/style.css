@@ -1,0 +1,23 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameTable{
+    display: flex;
+    gap: 50px;
+}
+
+.board {
+    width: 320px;
+    height: 320px;
+    border: 1px solid black;
+}

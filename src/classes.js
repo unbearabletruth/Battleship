@@ -167,32 +167,6 @@ class Player {
     }
 }
 
-function playGame(){
-    let turn = "player";
-    while (player.board.allSunk() !== true && computer.board.allSunk() !== true){
-        console.log(computer.board.allSunk())
-        if (turn === "player"){
-            let coord = player.makeShot();
-            computer.board.receiveAttack(coord[0], coord[1]);
-        }
-        else if (turn === "computer"){
-            let coords = computer.makeShot();
-            player.board.receiveAttack(coords[0], coords[1]);
-        }
-        if (turn === "player"){
-            turn = "computer";
-        }
-        else {turn = "player"}
-    }
-    if (player.board.allSunk() === true){
-        console.log("Computer wins!");
-        return
-    }
-    else if (computer.board.allSunk() === true){
-        console.log("Player wins!");
-        return
-    }
-}
 
 const player = new Player("Tony", new Gameboard(10));
 player.boardInit([4,3,3,2,2,2,1,1,1,1]);
@@ -202,6 +176,5 @@ computer.boardInit([4,3,3,2,2,2,1,1,1,1]);
 
 console.log(player.board.board);
 console.log(computer.board.board);
-//playGame();
 
-export {Ship, Gameboard, Player};
+export {Ship, Gameboard, Player, player, computer};
