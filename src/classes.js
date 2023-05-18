@@ -1,3 +1,5 @@
+import { arrayInArray } from "./helperFunctions";
+
 class Ship {
     constructor(length){
         this.length = length;
@@ -158,9 +160,11 @@ class Player {
         if (this.name === "Computer"){
             x = Math.floor(Math.random() * this.board.size);
             y = Math.floor(Math.random() * this.board.size);
-            if (!this.shots.includes([x, y])){
+            console.log(arrayInArray(this.shots, [x, y]) !== true)
+            if (arrayInArray(this.shots, [x, y]) !== true){
                 this.shots.push([x, y])
                 valid = true;
+                console.log(this.shots)
                 return [x, y];
             }
         }

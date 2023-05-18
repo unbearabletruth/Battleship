@@ -37,8 +37,8 @@ function renderShips(player){
     }
 }
 
-function renderHit(x, y , hitOrMiss){
-    let hitSquare = document.getElementById(`${x}${y}${computer.name}`);
+function renderHit(x, y , hitOrMiss, player){
+    let hitSquare = document.getElementById(`${x}${y}${player.name}`);
     if (hitOrMiss === "hit"){
         hitSquare.style.background = "red";
     } else {
