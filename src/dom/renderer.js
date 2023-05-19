@@ -1,6 +1,7 @@
-import { Ship, computer, Player } from '../classes';
+import { Ship, Player, Gameboard } from '../classes';
+import { player, computer } from '../classes';
+import { initGame } from '..';
 import { playRound } from './playGame';
-import hitIcon from '../../assets/onTarget.svg';
 
 function renderBoard(player){
     const board = document.createElement("div");
@@ -23,9 +24,11 @@ function createBoardElements(player, board){
     playerName.textContent = player.name;
     const boardAndName = document.createElement("div");
     boardAndName.id = "boardAndName";
+    const sideFleet = renderSideBarFleet(player);
     const boardsWrapper = document.querySelector("#boardsWrapper");
     boardAndName.appendChild(playerName);
     boardAndName.appendChild(board);
+    boardAndName.appendChild(sideFleet);
     boardsWrapper.appendChild(boardAndName);
 }
 
@@ -50,7 +53,6 @@ function renderShips(player){
 
 function renderHit(x, y , hitOrMiss, player){
     let hitSquare = document.getElementById(`${x}${y}${player.name}`);
-    console.log(hitSquare, hitOrMiss)
     if (hitOrMiss === "miss"){
         hitSquare.textContent = "\u2022";
     } else {
@@ -69,5 +71,54 @@ function clickToHit(){
     }
 }
 
+function renderSideBarFleet(player){
+    const fleet = document.createElement("div");
+    fleet.id = "sideBar";
+    for (let i = 0; i < player.board.fleet.length; i++){
+        let sideShip = document.createElement("div");
+        sideShip.classList.add("sideShip");
+        sideShip.id = `${i}${player.name}`;
+        fleet.appendChild(sideShip); 
+        for (let j = 0; j < player.board.fleet[i].length; j++) {
+            let shipCell = document.createElement("div");
+            shipCell.classList.add("shipCell");
+            sideShip.appendChild(shipCell);
+        }  
+    }
+    return fleet;
+}
 
-export {renderBoard, renderShips, clickToHit, renderHit}
+function sideBarHit(player){
+    let fleet = player.board.fleet;
+    for (let i = 0; i < fleet.length; i++){
+        if (fleet[i].sunk === true){
+            let sideShip = document.getElementById(`${i}${player.name}`);
+            sideShip.style.background = "#ef4444";
+        }
+    }
+}
+
+function newGame(){
+    let boards = document.querySelectorAll("#boardsWrapper");
+    for (let board of boards){
+        while (board.firstChild) {
+            board.removeChild(board.firstChild);
+        }
+    }
+    initGame();
+}
+
+function restartEvent(){
+    let restart = document.querySelector("#restart");
+    restart.addEventListener("click", () => {
+        player = new Player("Tony", new Gameboard(10));
+        player.boardInit([4,3,3,2,2,2,1,1,1,1]);
+        computer = new Player("Computer", new Gameboard(10));
+        computer.boardInit([4,3,3,2,2,2,1,1,1,1]);
+        newGame();
+    });
+}
+
+restartEvent();
+
+export {renderBoard, renderShips, clickToHit, renderHit, sideBarHit}

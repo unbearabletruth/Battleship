@@ -16,11 +16,11 @@ body{
 }
 
 h2{
-    font-size: 2.5rem;
+    font-size: 3rem;
 }
 
 #status{
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 #gameTable{
@@ -77,3 +77,34 @@ div .square:hover {
     background-color: #f87171 !important;
 }
 
+#sideBar {
+    display: flex;
+    gap: 5px;
+}
+
+.sideShip {
+    display: flex;
+    border: 1px solid #404040;
+}
+
+.shipCell{
+    width: 12px;
+    height: 12px;
+}
+
+#restart{
+    width: 150px;
+    height: 45px;
+    border: 0px;
+    background-color: #38bdf8;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+#restart:hover{
+    background-color: #0ea5e9;
+    cursor: pointer;
+}

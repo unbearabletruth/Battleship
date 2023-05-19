@@ -186,21 +186,20 @@ class Player {
             if (arrayInArray(this.shots, [x, y]) !== true){
                 this.shots.push([x, y])
                 valid = true;
-                console.log(this.shots)
                 return [x, y];
             }
         }
     }
 }
 
+function initPlayers(){
+    let player = new Player("Tony", new Gameboard(10));
+    player.boardInit([4,3,3,2,2,2,1,1,1,1]);
+    let computer = new Player("Computer", new Gameboard(10));
+    computer.boardInit([4,3,3,2,2,2,1,1,1,1]);
+    return [player, computer]
+}
 
-const player = new Player("Tony", new Gameboard(10));
-player.boardInit([4,3,3,2,2,2,1,1,1,1]);
-
-const computer = new Player("Computer", new Gameboard(10));
-computer.boardInit([4,3,3,2,2,2,1,1,1,1]);
-
-console.log(player.board.board);
-console.log(computer.board.board);
+let [player, computer] = initPlayers();
 
 export {Ship, Gameboard, Player, player, computer};
