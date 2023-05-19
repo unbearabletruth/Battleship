@@ -6,15 +6,16 @@ function playRound(x, y){
         let hitOrMiss = computer.board.receiveAttack(x, y);
         renderHit(x, y, hitOrMiss, computer);
         let coords = computer.makeShot();
-        player.board.receiveAttack(coords[0], coords[1]);
+        hitOrMiss = player.board.receiveAttack(coords[0], coords[1]);
         renderHit(coords[0], coords[1], hitOrMiss, player);
     }
+    let status = document.getElementById("status");
     if (player.board.allSunk() === true){
-        console.log("Computer wins!");
+        status.textContent = "Computer wins!"
         return
     }
     else if (computer.board.allSunk() === true){
-        console.log("Player wins!");
+        status.textContent = "You win!"
         return
     }
 }

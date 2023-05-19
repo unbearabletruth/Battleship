@@ -60,16 +60,28 @@ class Gameboard {
                     return valid;
                 }
                 if (x + 1 < this.size && typeof this.board[x + 1][y] === "object"){
-                    return valid;
+                    return valid;//checks under
                 }
+                /*if (x + 1 < this.size && y - 1 > 0 && this.board[x + 1][y - 1] === "object"){
+                    return valid;//checks underLeft
+                }
+                if (x + 1 < this.size && y + 1 < this.size && this.board[x + 1][y + 1] === "object"){
+                    return valid;//checks underRight
+                }*/
                 if (x - len > 0 && typeof this.board[x - len][y] === "object"){
-                    return valid;
+                    return valid;//checks upper
                 }
+                /*if (x - len > 0 && y - 1 > 0 && typeof this.board[x - len][y - 1] === "object"){
+                    return valid;//checks upperLeft
+                }
+                if (x - len > 0 && y + 1 < this.size && typeof this.board[x - len][y + 1] === "object"){
+                    return valid;//checks upperRight
+                }*/
                 if (y - 1 > 0 && typeof this.board[x - i][y - 1] === "object"){
-                    return valid;
+                    return valid;//checks left cells for ship len
                 }
                 if (y + 1 < this.size && typeof this.board[x - i][y + 1] === "object"){
-                    return valid;
+                    return valid;//checks right cells for ship len
                 }
             }   
             valid = true;
@@ -80,17 +92,29 @@ class Gameboard {
                 if (y + i >= this.size || typeof this.board[x][y + i] === "object"){
                     return valid;
                 }
-                if (y - 1 > 0 && typeof this.board[x][y - 1] === "object"){
-                    return valid;
+                if (y - 1 >= 0 && typeof this.board[x][y - 1] === "object"){
+                    return valid;//checks left
                 }
+                /*if (y - 1 > 0 && x + 1 < this.size && typeof this.board[x + 1][y - 1]){
+                    return valid;//checks leftBottom
+                }
+                if (y - 1 > 0 && x - 1 > 0 && typeof this.board[x - 1][y - 1]){
+                    return valid;//checks leftTop
+                }*/
                 if (y + len < this.size && typeof this.board[x][y + len] === "object"){
-                    return valid;
+                    return valid;//checks right
                 }
-                if (x - 1 > 0 && typeof this.board[x - 1][y + i] === "object"){
-                    return valid;
+                /*if (y + len < this.size && x - 1 > 0 && typeof this.board[x - 1][y + len]){
+                    return valid;//checks rightTop
+                }
+                if (y + len < this.size && x + 1 < this.size && typeof this.board[x + 1][y + len]){
+                    return valid;//checks rightBottom
+                }*/
+                if (x - 1 >= 0 && typeof this.board[x - 1][y + i] === "object"){
+                    return valid;//checks upper cells for ship len
                 }
                 if (x + 1 < this.size && typeof this.board[x + 1][y + i] === "object"){
-                    return valid;
+                    return valid;//checks under cells for ship len
                 }
             }
             valid = true;
@@ -119,7 +143,7 @@ class Gameboard {
             this.board[x][y].hit();
             return this.board[x][y];
         }
-        return this.board[x][y] = "hit";
+        return this.board[x][y] = "miss";
     }
 
     allSunk(){
@@ -144,7 +168,6 @@ class Player {
         for (let shipLen of fleetToPlace){
             this.board.makeCoordinates(shipLen);
         }
-        console.log(this.board.fleet);
         return this.board.fleet;
     }
 
@@ -160,7 +183,6 @@ class Player {
         if (this.name === "Computer"){
             x = Math.floor(Math.random() * this.board.size);
             y = Math.floor(Math.random() * this.board.size);
-            console.log(arrayInArray(this.shots, [x, y]) !== true)
             if (arrayInArray(this.shots, [x, y]) !== true){
                 this.shots.push([x, y])
                 valid = true;

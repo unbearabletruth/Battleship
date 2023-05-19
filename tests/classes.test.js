@@ -56,6 +56,23 @@ describe("Gameboard class tests:", () => {
         expect(board.tryPlace(7, 0, 2, "up")).toBe(false);
     });
 
+    test("placing adjecent returns false", () => {//
+        board.placeShip(1, 1, 3, "up")
+        expect(board.tryPlace(0, 1, 1, "up")).toBe(false);//under
+        expect(board.tryPlace(1, 2, 1, "up")).toBe(false);//left
+        expect(board.tryPlace(7, 1, 1, "up")).toBe(false);//upper
+        expect(board.tryPlace(6, 0, 1, "up")).toBe(false);//right
+        expect(board.tryPlace(5, 1, 1, "right")).toBe(false);//under
+        expect(board.tryPlace(6, 2, 1, "right")).toBe(false);//left
+        expect(board.tryPlace(7, 1, 1, "right")).toBe(false);//upper
+        expect(board.tryPlace(6, 0, 1, "right")).toBe(false);//right
+    });
+
+    test("placing adjecent (diagonal) returns false", () => {
+        board.placeShip(6, 1, 1, "up")
+        expect(board.tryPlace(5, 2, 1, "up")).toBe(false);
+    });
+
     test("placing in proper space returns true", () => {
         board.placeShip(7, 0, 2, "up")
         expect(board.tryPlace(7, 1, 2, "up")).toBe(true);

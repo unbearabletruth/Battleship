@@ -1,8 +1,8 @@
 import { Ship, computer, Player } from '../classes';
 import { playRound } from './playGame';
+import hitIcon from '../../assets/onTarget.svg';
 
 function renderBoard(player){
-    console.log(player)
     const board = document.createElement("div");
     board.classList.add("board");
     for (let i = 0; i < player.board.size; i++) {
@@ -10,12 +10,23 @@ function renderBoard(player){
             let square = document.createElement("div");
             square.classList.add("square");
             square.id = `${i}${j}${player.name}`
-            square.dataset.id = `${i}${j}`
+            square.style.background = "white";
             board.appendChild(square);
         }   
     }
-    const gameTable = document.querySelector("#gameTable");
-    gameTable.appendChild(board);  
+    createBoardElements(player, board);
+}
+
+function createBoardElements(player, board){
+    const playerName = document.createElement("p");
+    playerName.id = "playerName";
+    playerName.textContent = player.name;
+    const boardAndName = document.createElement("div");
+    boardAndName.id = "boardAndName";
+    const boardsWrapper = document.querySelector("#boardsWrapper");
+    boardAndName.appendChild(playerName);
+    boardAndName.appendChild(board);
+    boardsWrapper.appendChild(boardAndName);
 }
 
 function renderShips(player){
@@ -24,13 +35,13 @@ function renderShips(player){
             if (player.board.board[i][j] instanceof Ship){
                 let square = document.getElementById(`${i}${j}${player.name}`)
                 if (player.board.board[i][j].length === 4){
-                    square.style.background = "yellow";
+                    square.style.background = "#86efac";
                 }else if (player.board.board[i][j].length === 3){
-                    square.style.background = "green";
+                    square.style.background = "#67e8f9";
                 }else if (player.board.board[i][j].length === 2){
-                    square.style.background = "blue";
+                    square.style.background = "#d8b4fe";
                 }else if (player.board.board[i][j].length === 1){
-                    square.style.background = "black";
+                    square.style.background = "#f9a8d4";
                 }
             }
         }  
@@ -39,10 +50,11 @@ function renderShips(player){
 
 function renderHit(x, y , hitOrMiss, player){
     let hitSquare = document.getElementById(`${x}${y}${player.name}`);
-    if (hitOrMiss === "hit"){
-        hitSquare.style.background = "red";
+    console.log(hitSquare, hitOrMiss)
+    if (hitOrMiss === "miss"){
+        hitSquare.textContent = "\u2022";
     } else {
-        hitSquare.style.background = "orange";
+        hitSquare.classList.add("hit");
     }
 }
 
