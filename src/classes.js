@@ -173,12 +173,13 @@ class Player {
 
     makeShot(xC = undefined, yC = undefined){
         let x, y;
+        let valid = false;
         if (this.name !== "Computer"){
             x = xC;
             y = yC;
             return [x, y];
         }
-        let valid = false;
+        
         while (!valid)
         if (this.name === "Computer"){
             x = Math.floor(Math.random() * this.board.size);
