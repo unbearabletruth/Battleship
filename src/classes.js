@@ -171,17 +171,10 @@ class Player {
         return this.board.fleet;
     }
 
-    makeShot(xC = undefined, yC = undefined){
+    makeShot(){
         let x, y;
         let valid = false;
-        if (this.name !== "Computer"){
-            x = xC;
-            y = yC;
-            return [x, y];
-        }
-        
-        while (!valid)
-        if (this.name === "Computer"){
+        while (!valid){
             x = Math.floor(Math.random() * this.board.size);
             y = Math.floor(Math.random() * this.board.size);
             if (arrayInArray(this.shots, [x, y]) !== true){
@@ -189,7 +182,7 @@ class Player {
                 valid = true;
                 return [x, y];
             }
-        }
+        }  
     }
 }
 

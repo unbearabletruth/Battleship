@@ -88,7 +88,7 @@ describe("Gameboard class tests:", () => {
     });
 
     test("receives missed attack", () => {
-        expect(board.receiveAttack(0, 0)).toBe("hit");
+        expect(board.receiveAttack(0, 0)).toBe("miss");
     });
 
     test("not all ships sunk", () => {
@@ -118,11 +118,6 @@ describe("Player class tests:", () => {
     test("places Ship object", () => {
         const player = new Player("Gamer", new Gameboard(10));
         expect(player.boardInit([4,3,2,1])[3]).toBeInstanceOf(Ship);
-    });
-
-    test("makeShot returns computer coordinates to hit", () => {
-        const player = new Player("Gamer", new Gameboard(10));
-        expect(player.makeShot(4, 4)).toEqual([4, 4]);
     });
 
     test("makeShot returns player's coords to hit", () => {
