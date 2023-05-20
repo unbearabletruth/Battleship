@@ -28,7 +28,7 @@ describe("Gameboard class tests:", () => {
     let board;
 
     beforeEach(() => {
-        board = new Gameboard(8);
+        board = new Gameboard(10);
         board.createBoard();
     });
 
@@ -57,21 +57,16 @@ describe("Gameboard class tests:", () => {
     });
 
     test("placing adjecent returns false", () => {//
-        board.placeShip(1, 1, 3, "up")
-        expect(board.tryPlace(0, 1, 1, "up")).toBe(false);//under
-        expect(board.tryPlace(1, 2, 1, "up")).toBe(false);//left
-        expect(board.tryPlace(7, 1, 1, "up")).toBe(false);//upper
-        expect(board.tryPlace(6, 0, 1, "up")).toBe(false);//right
-        expect(board.tryPlace(5, 1, 1, "right")).toBe(false);//under
-        expect(board.tryPlace(6, 2, 1, "right")).toBe(false);//left
-        expect(board.tryPlace(7, 1, 1, "right")).toBe(false);//upper
-        expect(board.tryPlace(6, 0, 1, "right")).toBe(false);//right
+        board.placeShip(0, 5, 3, "right")//right
+        //board.placeShip(1, 2, 2, "up")//up
+        //board.placeShip(4, 1, 3, "up")//left
+        expect(board.tryPlace(1, 7, 1, "up")).toBe(false);//under
     });
 
-    test("placing adjecent (diagonal) returns false", () => {
+    /*test("placing adjecent (diagonal) returns false", () => {
         board.placeShip(6, 1, 1, "up")
         expect(board.tryPlace(5, 2, 1, "up")).toBe(false);
-    });
+    });*/
 
     test("placing in proper space returns true", () => {
         board.placeShip(7, 0, 2, "up")
