@@ -9,10 +9,11 @@ body{
     height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 30px;
     justify-content: center;
     align-items: center;
     color: #404040;
+    background-color: #f5f3ff;
 }
 
 h2{
@@ -29,8 +30,8 @@ h2{
     justify-content: center;
     gap: 50px;
     align-items: center;
-    width: 1000px;
-    height: 600px;
+    width: 1100px;
+    height: 700px;
     border: 1px solid #a3a3a3;
     border-radius: 20px;
     background-color: #e2e8f0;
@@ -47,6 +48,10 @@ h2{
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+
+#playerName{
+    font-size: 1.1rem;
 }
 
 .board {
