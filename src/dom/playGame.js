@@ -2,6 +2,7 @@ import { renderHit } from "./renderer";
 import { player, computer } from "../classes";
 import { sideBarHit } from "./renderer";
 import { arrayInArray } from "../helperFunctions";
+import { renderAfterSunk } from "./renderer";
 
 function playRound(x, y){
     let status = document.querySelector("#status");
@@ -9,6 +10,7 @@ function playRound(x, y){
     if (arrayInArray(player.shots, [x, y]) !== true){
         if (player.board.allSunk() !== true && computer.board.allSunk() !== true){
             playerMove(x, y);
+            //renderAfterSunk(computer);
             computerMove();  
         }
     }

@@ -56,64 +56,64 @@ class Gameboard {
         let valid = false;
         if (direction === "up"){
             for (let i = 0; i < len; i++) {
-                if (x - i < 0 || typeof this.board[x - i][y] === "object"){
+                if (x - i < 0 || this.board[x - i][y] instanceof Ship){
                     return valid;
                 }
-                if (x - len >= 0 && typeof this.board[x - len][y] === "object"){
+                if (x - len >= 0 && this.board[x - len][y] instanceof Ship){
                     return valid;//checks upper
                 }
-                if (y + 1 < this.size && typeof this.board[x - i][y + 1] === "object"){
+                if (y + 1 < this.size && this.board[x - i][y + 1] instanceof Ship){
                     return valid;//checks right cells for ship len
                 }
-                if (x + 1 < this.size && typeof this.board[x + 1][y] === "object"){
+                if (x + 1 < this.size && this.board[x + 1][y] instanceof Ship){
                     return valid;//checks under
                 }
-                if (y - 1 >= 0 && typeof this.board[x - i][y - 1] === "object"){
+                if (y - 1 >= 0 && this.board[x - i][y - 1] instanceof Ship){
                     return valid;//checks left cells for ship len
                 }
-                if (x - len >= 0 && y - 1 > 0 && typeof this.board[x - len][y - 1] === "object"){
+                if (x - len >= 0 && y - 1 >= 0 && this.board[x - len][y - 1] instanceof Ship){
                     return valid;//checks upperLeft
                 }
-                if (x - len >= 0 && y + 1 < this.size && typeof this.board[x - len][y + 1] === "object"){
+                if (x - len >= 0 && y + 1 < this.size && this.board[x - len][y + 1] instanceof Ship){
                     return valid;//checks upperRight
                 }
-                if (x + 1 < this.size && y + 1 < this.size && typeof this.board[x + 1][y + 1] === "object"){
+                if (x + 1 < this.size && y + 1 < this.size && this.board[x + 1][y + 1] instanceof Ship){
                     return valid;//checks underRight
                 }  
-                if (x + 1 < this.size && y - 1 >= 0 && typeof this.board[x + 1][y - 1] === "object"){
+                if (x + 1 < this.size && y - 1 >= 0 && this.board[x + 1][y - 1] instanceof Ship){
                     return valid;//checks underLeft
-                } 
+                }
             }   
             valid = true;
             return valid;
         }
         else if (direction === "right"){
             for (let i = 0; i < len; i++) {
-                if (y + i >= this.size || typeof this.board[x][y + i] === "object"){
+                if (y + i >= this.size || this.board[x][y + i] instanceof Ship){
                     return valid;
                 }
-                if (y - 1 >= 0 && typeof this.board[x][y - 1] === "object"){
+                if (y - 1 >= 0 && this.board[x][y - 1] instanceof Ship){
                     return valid;//checks left
                 }
-                if (x - 1 >= 0 && typeof this.board[x - 1][y + i] === "object"){
+                if (x - 1 >= 0 && this.board[x - 1][y + i] instanceof Ship){
                     return valid;//checks upper cells for ship len
                 }
-                if (y + len < this.size && typeof this.board[x][y + len] === "object"){
+                if (y + len < this.size && this.board[x][y + len] instanceof Ship){
                     return valid;//checks right
                 }
-                if (x + 1 < this.size && typeof this.board[x + 1][y + i] === "object"){
+                if (x + 1 < this.size && this.board[x + 1][y + i] instanceof Ship){
                     return valid;//checks under cells for ship len
                 }
-                if (y - 1 >= 0 && x + 1 < this.size && typeof this.board[x + 1][y - 1] === "object"){
+                if (y - 1 >= 0 && x + 1 < this.size && this.board[x + 1][y - 1] instanceof Ship){
                     return valid;//checks leftBottom
                 }
-                if (y - 1 >= 0 && x - 1 >= 0 && typeof this.board[x - 1][y - 1] === "object"){
+                if (y - 1 >= 0 && x - 1 >= 0 && this.board[x - 1][y - 1] instanceof Ship){
                     return valid;//checks leftTop
                 }
-                if (y + len < this.size && x - 1 >= 0 && typeof this.board[x - 1][y + len] === "object"){
+                if (y + len < this.size && x - 1 >= 0 && this.board[x - 1][y + len] instanceof Ship){
                     return valid;//checks rightTop
                 }
-                if (y + len < this.size && x + 1 < this.size && typeof this.board[x + 1][y + len] === "object"){
+                if (y + len < this.size && x + 1 < this.size && this.board[x + 1][y + len] instanceof Ship){
                     return valid;//checks rightBottom
                 }
             }
@@ -139,7 +139,7 @@ class Gameboard {
     }
 
     receiveAttack(x, y){
-        if (typeof this.board[x][y] === "object"){
+        if (this.board[x][y] instanceof Ship){
             this.board[x][y].hit();
             return this.board[x][y];
         }

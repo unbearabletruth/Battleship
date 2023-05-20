@@ -71,6 +71,23 @@ function clickToHit(){
     }
 }
 
+/*function renderAfterSunk(player){
+    let fleet = player.board.fleet;
+    for (let i = 0; i < fleet.length; i++){
+        if (fleet[i].sunk === true){
+            if (fleet[i].length === 4){
+                square.style.background = "#86efac";
+            }else if (fleet[i].length === 3){
+                square.style.background = "#67e8f9";
+            }else if (fleet[i].length === 2){
+                square.style.background = "#d8b4fe";
+            }else if (fleet[i].length === 1){
+                square.style.background = "#f9a8d4";
+            }
+        }
+    }
+}*/
+
 function renderSideBarFleet(player){
     const fleet = document.createElement("div");
     fleet.id = "sideBar";
@@ -121,4 +138,4 @@ function restartEvent(){
 
 restartEvent();
 
-export {renderBoard, renderShips, clickToHit, renderHit, sideBarHit}
+export {renderBoard, renderShips, clickToHit, renderHit, sideBarHit, renderAfterSunk}
