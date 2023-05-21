@@ -76,4 +76,21 @@ function tryPlace(x, y, len, direction){
     }
 }
 
-export {arrayInArray, tryPlace}
+function checkAdjacent(computer, hitOrMiss, x, y){
+    let moves = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+    if (hitOrMiss instanceof Ship && hitOrMiss.sunk !== true){
+        for (let move of moves){
+            let [dx, dy] = move;
+            let nextMove = [x + dx, y + dy];
+            if(x + dx >= 0 && y + dy >= 0 && x + dx < 10 && y + dy < 10){
+                console.log(computer.shots)
+                computer.q.push(nextMove);
+            }   
+        }
+    }
+    else if (hitOrMiss.sunk === true){
+        computer.q = [];
+    }
+}
+
+export {arrayInArray, tryPlace, checkAdjacent}

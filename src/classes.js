@@ -94,6 +94,7 @@ class Player {
         this.name = name;
         this.board = board;
         this.shots = [];
+        this.q = [];
     }
 
     boardInit(fleetToPlace){
@@ -104,10 +105,20 @@ class Player {
         return this.board.fleet;
     }
 
-    makeShot(){
-        let x, y;
+    makeShot(x = undefined, y = undefined){
         let valid = false;
-        while (!valid){
+        if (this.q.length !== 0){
+            while (!valid){
+                let [x, y] = this.q[0];
+                this.q.shift();
+                if (arrayInArray(this.shots, [x, y]) !== true){
+                    this.shots.push([x, y])
+                    valid = true;
+                    return [x, y];
+                }
+            }
+        } 
+        while(!valid){
             x = Math.floor(Math.random() * this.board.size);
             y = Math.floor(Math.random() * this.board.size);
             if (arrayInArray(this.shots, [x, y]) !== true){
@@ -115,7 +126,7 @@ class Player {
                 valid = true;
                 return [x, y];
             }
-        }  
+        }      
     }
 }
 

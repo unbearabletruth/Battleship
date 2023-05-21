@@ -1,7 +1,7 @@
 import { renderHit } from "./renderer";
 import { player, computer } from "../classes";
 import { sideBarHit } from "./renderer";
-import { arrayInArray } from "../helperFunctions";
+import { arrayInArray, checkAdjacent } from "../helperFunctions";
 import { renderEnemyShipAfterSunk } from "./renderer";
 
 function playRound(x, y){
@@ -36,6 +36,7 @@ function computerMove(){
     let hitOrMiss = player.board.receiveAttack(coords[0], coords[1]);
     renderHit(coords[0], coords[1], hitOrMiss, player);
     sideBarHit(player);
+    checkAdjacent(computer, hitOrMiss, coords[0], coords[1]);
 }
 
 export {playRound}
