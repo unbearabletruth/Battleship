@@ -33,21 +33,20 @@ function createBoardElements(player, board){
 }
 
 function renderShips(player){
-    for (let i = 0; i < player.board.size; i++) {
-        for (let j = 0; j < player.board.size; j++) {
-            if (player.board.board[i][j] instanceof Ship){
-                let square = document.getElementById(`${i}${j}${player.name}`)
-                if (player.board.board[i][j].length === 4){
-                    square.style.background = "#86efac";
-                }else if (player.board.board[i][j].length === 3){
-                    square.style.background = "#67e8f9";
-                }else if (player.board.board[i][j].length === 2){
-                    square.style.background = "#d8b4fe";
-                }else if (player.board.board[i][j].length === 1){
-                    square.style.background = "#f9a8d4";
-                }
+    for (let ship of player.board.fleet){
+        for (let coord of ship.coords){
+            let [x, y] = coord;
+            let square = document.getElementById(`${x}${y}${player.name}`)
+            if (ship.length === 4){
+                square.style.background = "#86efac";
+            }else if (ship.length === 3){
+                square.style.background = "#67e8f9";
+            }else if (ship.length === 2){
+                square.style.background = "#d8b4fe";
+            }else if (ship.length === 1){
+                square.style.background = "#f9a8d4";
             }
-        }  
+        }
     }
 }
 
@@ -71,22 +70,25 @@ function clickToHit(){
     }
 }
 
-/*function renderAfterSunk(player){
-    let fleet = player.board.fleet;
-    for (let i = 0; i < fleet.length; i++){
-        if (fleet[i].sunk === true){
-            if (fleet[i].length === 4){
-                square.style.background = "#86efac";
-            }else if (fleet[i].length === 3){
-                square.style.background = "#67e8f9";
-            }else if (fleet[i].length === 2){
-                square.style.background = "#d8b4fe";
-            }else if (fleet[i].length === 1){
-                square.style.background = "#f9a8d4";
+function renderEnemyShipAfterSunk(player){
+    for (let ship of player.board.fleet){
+        if (ship.sunk === true){
+            for (let coord of ship.coords){
+                let [x, y] = coord;
+                let square = document.getElementById(`${x}${y}${player.name}`)
+                if (ship.length === 4){
+                    square.style.background = "#86efac";
+                }else if (ship.length === 3){
+                    square.style.background = "#67e8f9";
+                }else if (ship.length === 2){
+                    square.style.background = "#d8b4fe";
+                }else if (ship.length === 1){
+                    square.style.background = "#f9a8d4";
+                }
             }
-        }
+        }   
     }
-}*/
+}
 
 function renderSideBarFleet(player){
     const fleet = document.createElement("div");
@@ -138,4 +140,4 @@ function restartEvent(){
 
 restartEvent();
 
-export {renderBoard, renderShips, clickToHit, renderHit, sideBarHit, renderAfterSunk}
+export {renderBoard, renderShips, clickToHit, renderHit, sideBarHit, renderEnemyShipAfterSunk}

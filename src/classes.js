@@ -5,6 +5,7 @@ class Ship {
         this.length = length;
         this.timesHit = 0;
         this.sunk = false;
+        this.coords = [];
     }
 
     hit(){
@@ -127,11 +128,13 @@ class Gameboard {
         if (direction === 'up'){
             for (let i = x; i > x - len; i--) {
                 this.board[i][y] = newShip;
+                newShip.coords.push([i, y])
             }
         }
         else if (direction === "right"){
             for (let i = y; i < y + len; i++) {
                 this.board[x][i] = newShip;
+                newShip.coords.push([x, i])
             }
         }
         this.fleet.push(newShip);
