@@ -1,15 +1,79 @@
+import { Ship } from "./classes";
+
 function arrayInArray(array, item){
     let strItem = JSON.stringify(item);
     let contains = (el) => JSON.stringify(el) === strItem;
     return array.some(contains);
 }
 
-/*[-1, -1]
-[-1, 0]
-[-1, 1]
-[0, 1]
-[1, 1]
-[1, 0]
-[1, -1]
-[0, -1]*/
-export {arrayInArray}
+function tryPlace(x, y, len, direction){
+    let valid = false;
+    if (direction === "up"){
+        for (let i = 0; i < len; i++) {
+            if (x - i < 0 || this.board[x - i][y] instanceof Ship){
+                return valid;
+            }
+            if (x - len >= 0 && this.board[x - len][y] instanceof Ship){
+                return valid;//checks upper
+            }
+            if (y + 1 < this.size && this.board[x - i][y + 1] instanceof Ship){
+                return valid;//checks right cells for ship len
+            }
+            if (x + 1 < this.size && this.board[x + 1][y] instanceof Ship){
+                return valid;//checks under
+            }
+            if (y - 1 >= 0 && this.board[x - i][y - 1] instanceof Ship){
+                return valid;//checks left cells for ship len
+            }
+            if (x - len >= 0 && y - 1 >= 0 && this.board[x - len][y - 1] instanceof Ship){
+                return valid;//checks upperLeft
+            }
+            if (x - len >= 0 && y + 1 < this.size && this.board[x - len][y + 1] instanceof Ship){
+                return valid;//checks upperRight
+            }
+            if (x + 1 < this.size && y + 1 < this.size && this.board[x + 1][y + 1] instanceof Ship){
+                return valid;//checks underRight
+            }  
+            if (x + 1 < this.size && y - 1 >= 0 && this.board[x + 1][y - 1] instanceof Ship){
+                return valid;//checks underLeft
+            }
+        }   
+        valid = true;
+        return valid;
+    }
+    else if (direction === "right"){
+        for (let i = 0; i < len; i++) {
+            if (y + i >= this.size || this.board[x][y + i] instanceof Ship){
+                return valid;
+            }
+            if (y - 1 >= 0 && this.board[x][y - 1] instanceof Ship){
+                return valid;//checks left
+            }
+            if (x - 1 >= 0 && this.board[x - 1][y + i] instanceof Ship){
+                return valid;//checks upper cells for ship len
+            }
+            if (y + len < this.size && this.board[x][y + len] instanceof Ship){
+                return valid;//checks right
+            }
+            if (x + 1 < this.size && this.board[x + 1][y + i] instanceof Ship){
+                return valid;//checks under cells for ship len
+            }
+            if (y - 1 >= 0 && x + 1 < this.size && this.board[x + 1][y - 1] instanceof Ship){
+                return valid;//checks leftBottom
+            }
+            if (y - 1 >= 0 && x - 1 >= 0 && this.board[x - 1][y - 1] instanceof Ship){
+                return valid;//checks leftTop
+            }
+            if (y + len < this.size && x - 1 >= 0 && this.board[x - 1][y + len] instanceof Ship){
+                return valid;//checks rightTop
+            }
+            if (y + len < this.size && x + 1 < this.size && this.board[x + 1][y + len] instanceof Ship){
+                return valid;//checks rightBottom
+            }
+        }
+        valid = true;
+        return valid;
+    }
+}
+
+export {arrayInArray, tryPlace}

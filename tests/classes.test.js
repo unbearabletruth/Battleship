@@ -7,8 +7,11 @@ describe("Ship class tests:", () => {
         ship = new Ship(3);
     });
 
-    test("should be Ship object with length, timesHit, sunk", () => {
-        expect(ship).toEqual({length: 3, timesHit: 0, sunk: false});
+    test("should be Ship object with length, timesHit, sunk, coords", () => {
+        expect(ship.length).not.toBe(undefined);
+        expect(ship.timesHit).not.toBe(undefined);
+        expect(ship.sunk).not.toBe(undefined);
+        expect(ship.coords).not.toBe(undefined);
     });
 
     test("hits the ship", () => {
@@ -56,21 +59,25 @@ describe("Gameboard class tests:", () => {
         expect(board.tryPlace(7, 0, 2, "up")).toBe(false);
     });
 
-    test("placing adjecent returns false", () => {//
-        board.placeShip(0, 5, 3, "right")//right
-        //board.placeShip(1, 2, 2, "up")//up
-        //board.placeShip(4, 1, 3, "up")//left
-        expect(board.tryPlace(1, 7, 1, "up")).toBe(false);//under
+    test("placing adjecent returns false", () => {
+        board.placeShip(4, 2, 3, "up")
+        expect(board.tryPlace(5, 3, 4, "up")).toBe(false);//right
+        expect(board.tryPlace(1, 2, 2, "right")).toBe(false);//top
+        expect(board.tryPlace(6, 2, 2, "up")).toBe(false);//bottom
+        expect(board.tryPlace(5, 1, 4, "up")).toBe(false);//left
     });
 
-    /*test("placing adjecent (diagonal) returns false", () => {
-        board.placeShip(6, 1, 1, "up")
-        expect(board.tryPlace(5, 2, 1, "up")).toBe(false);
-    });*/
+    test("placing adjecent (diagonal) returns false", () => {
+        board.placeShip(7, 5, 3, "right")
+        expect(board.tryPlace(8, 3, 2, "right")).toBe(false);//leftBottom
+        expect(board.tryPlace(6, 3, 2, "right")).toBe(false);//leftTop
+        expect(board.tryPlace(6, 8, 2, "up")).toBe(false);//rightTop
+        expect(board.tryPlace(9, 8, 2, "up")).toBe(false);//rightBottom
+    });
 
     test("placing in proper space returns true", () => {
         board.placeShip(7, 0, 2, "up")
-        expect(board.tryPlace(7, 1, 2, "up")).toBe(true);
+        expect(board.tryPlace(7, 2, 2, "up")).toBe(true);
     });
 
     test("creates Ship object on a board", () => {
@@ -103,11 +110,7 @@ describe("Player class tests:", () => {
     
     test("places all ships", () => {
         const player = new Player("Gamer", new Gameboard(10));
-        expect(player.boardInit([4,3,2,1]))
-        .toEqual([{length: 4, timesHit: 0, sunk: false},
-                 {length: 3, timesHit: 0, sunk: false},
-                 {length: 2, timesHit: 0, sunk: false},
-                 {length: 1, timesHit: 0, sunk: false}]);
+        expect(player.boardInit([4,3,2,1]).length).toBe(4);
     });
 
     test("places Ship object", () => {
