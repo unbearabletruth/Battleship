@@ -131,7 +131,7 @@ class Player {
 }
 
 function initPlayers(){
-    let player = new Player("Tony", new Gameboard(10));
+    let player = new Player("Player", new Gameboard(10));
     player.boardInit([4,3,3,2,2,2,1,1,1,1]);
     let computer = new Player("Computer", new Gameboard(10));
     computer.boardInit([4,3,3,2,2,2,1,1,1,1]);

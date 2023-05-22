@@ -1,5 +1,6 @@
 import { player, computer } from "./classes";
-import { renderBoard, renderShips, clickToHit} from "./dom/renderer";
+import { renderBoard, renderShips} from "./dom/renderer";
+import { clickToHit, restartEvent } from "./dom/playGame";
 import '../assets/style.css';
 
 function initGame(){
@@ -12,5 +13,6 @@ function initGame(){
 }
 
 initGame();
+restartEvent();
 
 export {initGame};
