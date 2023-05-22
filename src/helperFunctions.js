@@ -6,7 +6,7 @@ function arrayInArray(array, item){
     return array.some(contains);
 }
 
-function tryPlace(x, y, len, direction){
+function testtryPlace(x, y, len, direction){
     let valid = false;
     if (direction === "up"){
         for (let i = 0; i < len; i++) {
@@ -76,6 +76,39 @@ function tryPlace(x, y, len, direction){
     }
 }
 
+//alternative tryPlace for practice
+function tryPlace(x, y, len, direction){
+    let valid = false;
+    let moves = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
+    let coords = [];
+    for (let i = 0; i < len; i++) {
+        if (direction === "up" && x - i >= 0){
+            let coord = [x - i, y];
+            coords.push(coord);
+        }else if (direction === "right" && y + i < this.size){
+            let coord = [x, y + i];
+            coords.push(coord);
+        }else {
+            return valid;
+        }
+    }
+    for (let coord of coords){
+        let [x, y] = coord;
+        if (this.board[x][y] instanceof Ship){
+            return valid;
+        }
+        for (let move of moves){
+            let [dx, dy] = move;
+            if (x + dx >= 0 && y + dy >= 0 && x + dx < this.size && y + dy < this.size &&
+                this.board[x + dx][y + dy] instanceof Ship){
+                    return valid;
+            } 
+        }
+    }
+    valid = true;
+    return valid;
+}
+
 function checkAdjacent(computer, hitOrMiss, x, y){
     let moves = [[-1, 0], [0, 1], [1, 0], [0, -1]];
     if (hitOrMiss instanceof Ship && hitOrMiss.sunk !== true){
@@ -83,7 +116,6 @@ function checkAdjacent(computer, hitOrMiss, x, y){
             let [dx, dy] = move;
             let nextMove = [x + dx, y + dy];
             if(x + dx >= 0 && y + dy >= 0 && x + dx < computer.board.size && y + dy < computer.board.size){
-                console.log(computer.shots)
                 computer.q.push(nextMove);
             }   
         }
@@ -111,4 +143,3 @@ function addAdjacentToShots(ship, computer){
 
 export {arrayInArray, tryPlace, checkAdjacent}
 
-//check if you can meke q [] not Player property
