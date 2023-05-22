@@ -14,14 +14,14 @@ function playRound(x, y){
             computerMove();  
         }
     }
-    if (player.board.allSunk() === true){
-        status.textContent = "Computer wins!"
-        return
+    if (computer.board.allSunk() === true){
+        status.textContent = "You win!";
+        return;
     }
-    else if (computer.board.allSunk() === true){
-        status.textContent = "You win!"
-        return
-    }
+    else if (player.board.allSunk() === true){
+        status.textContent = "Computer wins!";
+        return;
+    }   
 }
 
 function playerMove(x, y){

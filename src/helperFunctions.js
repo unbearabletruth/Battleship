@@ -1,4 +1,4 @@
-import { Ship } from "./classes";
+import { Ship, computer } from "./classes";
 
 function arrayInArray(array, item){
     let strItem = JSON.stringify(item);
@@ -82,15 +82,33 @@ function checkAdjacent(computer, hitOrMiss, x, y){
         for (let move of moves){
             let [dx, dy] = move;
             let nextMove = [x + dx, y + dy];
-            if(x + dx >= 0 && y + dy >= 0 && x + dx < 10 && y + dy < 10){
+            if(x + dx >= 0 && y + dy >= 0 && x + dx < computer.board.size && y + dy < computer.board.size){
                 console.log(computer.shots)
                 computer.q.push(nextMove);
             }   
         }
     }
     else if (hitOrMiss.sunk === true){
+        addAdjacentToShots(hitOrMiss, computer);
         computer.q = [];
     }
 }
 
+function addAdjacentToShots(ship, computer){
+    let moves = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
+    for (let coord of ship.coords){
+        let [x, y] = coord;
+        for (let move of moves){
+            let [dx, dy] = move;
+            if (x + dx >= 0 && y + dy >= 0 && x + dx < computer.board.size && y + dy < computer.board.size &&
+                arrayInArray(computer.shots, [x + dx, y + dy]) !== true){
+                    let coordToShots = [x + dx, y + dy];
+                    computer.shots.push(coordToShots);
+            } 
+        }
+    }
+}
+
 export {arrayInArray, tryPlace, checkAdjacent}
+
+//check if you can meke q [] not Player property
