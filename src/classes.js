@@ -90,7 +90,8 @@ class Gameboard {
 }
 
 class Player {
-    constructor(name, board){
+    constructor(id, name, board){
+        this.id = id;
         this.name = name;
         this.board = board;
         this.shots = [];
@@ -131,9 +132,9 @@ class Player {
 }
 
 function initPlayers(){
-    let player = new Player("Player", new Gameboard(10));
+    let player = new Player(1, "Player", new Gameboard(10));
     player.boardInit([4,3,3,2,2,2,1,1,1,1]);
-    let computer = new Player("Computer", new Gameboard(10));
+    let computer = new Player(2, "Computer", new Gameboard(10));
     computer.boardInit([4,3,3,2,2,2,1,1,1,1]);
     return [player, computer]
 }
