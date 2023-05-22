@@ -1,4 +1,4 @@
-import { renderHit } from "./renderer";
+import { renderHit, renderWin, renderShips } from "./renderer";
 import { player, computer } from "../classes";
 import { sideBarHit } from "./renderer";
 import { arrayInArray, checkAdjacent } from "../helperFunctions";
@@ -15,11 +15,12 @@ function playRound(x, y){
         }
     }
     if (computer.board.allSunk() === true){
-        status.textContent = "You win!";
+        renderWin(player);
         return;
     }
     else if (player.board.allSunk() === true){
-        status.textContent = "Computer wins!";
+        renderShips(computer);
+        renderWin(computer);
         return;
     }   
 }

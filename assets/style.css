@@ -9,7 +9,7 @@ body{
     height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 60px;
     justify-content: center;
     align-items: center;
     color: #404040;
@@ -112,4 +112,22 @@ div .square:hover {
 #restart:hover{
     background-color: #0ea5e9;
     cursor: pointer;
+}
+
+.playerWinsText{
+    font-weight: bold;
+    color: #4ade80;
+}
+
+.playerWinsTable{
+    box-shadow: 0 0 50px 15px #4ade80 !important;
+}
+
+.computerWinsText{
+    font-weight: bold;
+    color: #ef4444;
+}
+
+.computerWinsTable{
+    box-shadow: 0 0 50px 15px #ef4444 !important;
 }

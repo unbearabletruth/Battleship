@@ -117,7 +117,25 @@ function sideBarHit(player){
     }
 }
 
+function renderWin(player){
+    let status = document.querySelector("#status");
+    let table = document.querySelector("#gameTable");
+    if (player.name !== "Computer"){
+        status.classList.add("playerWinsText");
+        table.classList.add("playerWinsTable");
+        status.textContent = "You win!";
+    } else{
+        status.textContent = "Computer wins!";
+        status.classList.add("computerWinsText");
+        table.classList.add("computerWinsTable"); 
+    }
+}
+
 function newGame(){
+    let status = document.querySelector("#status");
+    let table = document.querySelector("#gameTable");
+    status.classList.remove(status.classList.item(0));
+    table.classList.remove(table.classList.item(0));
     let boards = document.querySelectorAll("#boardsWrapper");
     for (let board of boards){
         while (board.firstChild) {
@@ -140,4 +158,4 @@ function restartEvent(){
 
 restartEvent();
 
-export {renderBoard, renderShips, clickToHit, renderHit, sideBarHit, renderEnemyShipAfterSunk}
+export {renderBoard, renderShips, clickToHit, renderHit, sideBarHit, renderEnemyShipAfterSunk, renderWin}
