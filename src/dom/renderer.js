@@ -1,4 +1,4 @@
-import { createBoardElements } from './rendererHelper';
+import { createBoardElements } from './elementCreation';
 
 function renderBoard(player){
     const board = document.createElement("div");
@@ -21,20 +21,19 @@ function renderShips(player){
             let [x, y] = coord;
             let square = document.getElementById(`${x}${y}${player.id}`)
             if (ship.length === 4){
-                square.style.background = "#86efac";
+                square.style.background = "#4ade80";
             }else if (ship.length === 3){
-                square.style.background = "#67e8f9";
+                square.style.background = "#22d3ee";
             }else if (ship.length === 2){
-                square.style.background = "#d8b4fe";
+                square.style.background = "#facc15";
             }else if (ship.length === 1){
-                square.style.background = "#f9a8d4";
+                square.style.background = "#e879f9";
             }
         }
     }
 }
 
 function renderHit(x, y , hitOrMiss, player){
-    console.log(player.name)
     let hitSquare = document.getElementById(`${x}${y}${player.id}`);
     if (hitOrMiss === "miss"){
         hitSquare.textContent = "\u2022";
@@ -50,13 +49,13 @@ function renderEnemyShipAfterSunk(player){
                 let [x, y] = coord;
                 let square = document.getElementById(`${x}${y}${player.id}`)
                 if (ship.length === 4){
-                    square.style.background = "#86efac";
+                    square.style.background = "#4ade80";
                 }else if (ship.length === 3){
-                    square.style.background = "#67e8f9";
+                    square.style.background = "#22d3ee";
                 }else if (ship.length === 2){
-                    square.style.background = "#d8b4fe";
+                    square.style.background = "#facc15";
                 }else if (ship.length === 1){
-                    square.style.background = "#f9a8d4";
+                    square.style.background = "#e879f9";
                 }
             }
         }   
