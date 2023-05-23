@@ -6,7 +6,7 @@ function arrayInArray(array, item){
     return array.some(contains);
 }
 
-function testtryPlace(x, y, len, direction){
+function tryPlace(x, y, len, direction){
     let valid = false;
     if (direction === "up"){
         for (let i = 0; i < len; i++) {
@@ -77,7 +77,7 @@ function testtryPlace(x, y, len, direction){
 }
 
 //alternative tryPlace for practice
-function tryPlace(x, y, len, direction){
+function testtryPlace(x, y, len, direction){
     let valid = false;
     let moves = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
     let coords = [];

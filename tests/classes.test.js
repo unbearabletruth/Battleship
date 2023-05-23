@@ -1,4 +1,5 @@
 import { Ship, Gameboard, Player } from "../src/classes";
+import { tryPlace } from "../src/helperFunctions";
 
 describe("Ship class tests:", () => {
     let ship;
@@ -55,29 +56,29 @@ describe("Gameboard class tests:", () => {
 
     test("placing out of bounds or on other Ship returns false", () => {
         board.placeShip(7, 0, 2, "up")
-        expect(board.tryPlace(0, 2, 3, "up")).toBe(false);
-        expect(board.tryPlace(7, 0, 2, "up")).toBe(false);
+        expect(tryPlace.call(board, 0, 2, 3, "up")).toBe(false);
+        expect(tryPlace.call(board, 7, 0, 2, "up")).toBe(false);
     });
 
     test("placing adjecent returns false", () => {
         board.placeShip(4, 2, 3, "up")
-        expect(board.tryPlace(5, 3, 4, "up")).toBe(false);//right
-        expect(board.tryPlace(1, 2, 2, "right")).toBe(false);//top
-        expect(board.tryPlace(6, 2, 2, "up")).toBe(false);//bottom
-        expect(board.tryPlace(5, 1, 4, "up")).toBe(false);//left
+        expect(tryPlace.call(board, 5, 3, 4, "up")).toBe(false);//right
+        expect(tryPlace.call(board, 1, 2, 2, "right")).toBe(false);//top
+        expect(tryPlace.call(board, 6, 2, 2, "up")).toBe(false);//bottom
+        expect(tryPlace.call(board, 5, 1, 4, "up")).toBe(false);//left
     });
 
     test("placing adjecent (diagonal) returns false", () => {
         board.placeShip(7, 5, 3, "right")
-        expect(board.tryPlace(8, 3, 2, "right")).toBe(false);//leftBottom
-        expect(board.tryPlace(6, 3, 2, "right")).toBe(false);//leftTop
-        expect(board.tryPlace(6, 8, 2, "up")).toBe(false);//rightTop
-        expect(board.tryPlace(9, 8, 2, "up")).toBe(false);//rightBottom
+        expect(tryPlace.call(board, 8, 3, 2, "right")).toBe(false);//leftBottom
+        expect(tryPlace.call(board, 6, 3, 2, "right")).toBe(false);//leftTop
+        expect(tryPlace.call(board, 6, 8, 2, "up")).toBe(false);//rightTop
+        expect(tryPlace.call(board, 9, 8, 2, "up")).toBe(false);//rightBottom
     });
 
     test("placing in proper space returns true", () => {
         board.placeShip(7, 0, 2, "up")
-        expect(board.tryPlace(7, 2, 2, "up")).toBe(true);
+        expect(tryPlace.call(board, 7, 2, 2, "up")).toBe(true);
     });
 
     test("creates Ship object on a board", () => {
@@ -109,17 +110,17 @@ describe("Gameboard class tests:", () => {
 describe("Player class tests:", () => {
     
     test("places all ships", () => {
-        const player = new Player("Gamer", new Gameboard(10));
+        const player = new Player(1, "Gamer", new Gameboard(10));
         expect(player.boardInit([4,3,2,1]).length).toBe(4);
     });
 
     test("places Ship object", () => {
-        const player = new Player("Gamer", new Gameboard(10));
+        const player = new Player(1, "Gamer", new Gameboard(10));
         expect(player.boardInit([4,3,2,1])[3]).toBeInstanceOf(Ship);
     });
 
     test("makeShot returns player's coords to hit", () => {
-        const computer = new Player("Computer", new Gameboard(10));
+        const computer = new Player(2, "Computer", new Gameboard(10));
         const [x, y] = computer.makeShot();
         expect(x).toBeGreaterThanOrEqual(0);
         expect(x).toBeLessThan(computer.board.size);
@@ -128,7 +129,7 @@ describe("Player class tests:", () => {
     });
 
     test("properly writes shots to array", () => {
-        const computer = new Player("Computer", new Gameboard(10));
+        const computer = new Player(2, "Computer", new Gameboard(10));
         for (let i = 0; i < 15; i++) {
             computer.makeShot();  
         }
