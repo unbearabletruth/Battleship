@@ -1,18 +1,12 @@
-import { createBoardElements } from './elementCreation';
+import { createBoardElements, createSquare } from './elementCreation';
 
 function renderBoard(player){
-    const board = document.createElement("div");
-    board.classList.add("board");
+    createBoardElements(player);
     for (let i = 0; i < player.board.size; i++) {
         for (let j = 0; j < player.board.size; j++) {
-            let square = document.createElement("div");
-            square.classList.add("square");
-            square.id = `${i}${j}${player.id}`
-            square.style.background = "white";
-            board.appendChild(square);
+            createSquare(player, i, j);
         }   
     }
-    createBoardElements(player, board);
 }
 
 function renderShips(player){
@@ -92,7 +86,7 @@ function sideBarHit(player){
 function renderWin(player){
     let status = document.querySelector("#status");
     let table = document.querySelector("#gameTable");
-    if (player.name !== "Computer"){
+    if (player.id === 1){
         status.classList.add("playerWinsText");
         table.classList.add("playerWinsTable");
         status.textContent = `${player.name} wins!`;

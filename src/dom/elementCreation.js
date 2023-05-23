@@ -1,46 +1,63 @@
 import editIcon from '../../assets/edit.svg';
 import { renderSideBarFleet } from './renderer';
 
-function createBoardElements(player, board){
+function createBoardElements(player){
     const boardsWrapper = document.querySelector("#boardsWrapper");
+
     const boardUnit = document.createElement("div");
     boardUnit.id = `${player.name}boardUnit`;
     boardUnit.classList.add("boardUnit");
-    boardsWrapper.appendChild(boardUnit);  
-    const nameAndEdit = document.createElement("div");
-    nameAndEdit.id = `${player.name}nameAndEdit`;
-    nameAndEdit.classList.add("boardName");
+    boardsWrapper.appendChild(boardUnit);
+
+    const nameBlock = document.createElement("div");
+    nameBlock.id = `${player.name}nameBlock`;
+    nameBlock.classList.add("boardName");
+    boardUnit.appendChild(nameBlock);
+
     const playerName = document.createElement("p");
     playerName.id = `${player.name}Name`;
     playerName.textContent = player.name;
-    const changeName = createEditIcon(player, nameAndEdit);
-    const sideFleet = renderSideBarFleet(player);
-    nameAndEdit.appendChild(playerName);
-    nameAndEdit.appendChild(changeName);
-    boardUnit.appendChild(nameAndEdit);
+    nameBlock.appendChild(playerName);
+
+    const changeName = createEditIcon(player, nameBlock);
+    nameBlock.appendChild(changeName);
+    
+    const board = document.createElement("div");
+    board.id = `${player.name}Board`;
+    board.classList.add("board");
     boardUnit.appendChild(board);
+    
+    const sideFleet = renderSideBarFleet(player);
     boardUnit.appendChild(sideFleet);
 }
 
-function createEditIcon(player, nameAndEdit){
+function createSquare(player, i, j){
+    const board = document.querySelector(`#${player.name}Board`);
+    const square = document.createElement("div");
+    square.classList.add("square");
+    square.id = `${i}${j}${player.id}`
+    square.style.background = "white";
+    board.appendChild(square);
+}
+
+function createEditIcon(player, nameBlock){
     const changeName = document.createElement("img");
     changeName.src = editIcon;
     changeName.id = "editIcon";
     changeName.addEventListener("click", () => {
-        let nameInput = formName(player);
-        let submit = formSubmit();
-        let form = createForm(player);
-        let cancel = formCancel(form);
-        form.appendChild(nameInput);
-        form.appendChild(submit);
-        form.appendChild(cancel);
-        nameAndEdit.appendChild(form);
+        createForm(player, nameBlock);
     })
     return changeName;
 }
 
-function createForm(player){
+function createForm(player, nameBlock){
     const form = document.createElement("form");
+    const nameInput = formName(player);
+    const submit = formSubmit();
+    const cancel = formCancel(form);
+    form.appendChild(nameInput);
+    form.appendChild(submit);
+    form.appendChild(cancel);
     form.addEventListener("submit", (e) => {
         let nameInput = document.querySelector(`#${player.name}Input`);
         let playerName = document.querySelector(`#${player.name}Name`);
@@ -49,6 +66,7 @@ function createForm(player){
         form.remove();  
         e.preventDefault();   
     });
+    nameBlock.appendChild(form);
     return form;
 }
 
@@ -79,4 +97,4 @@ function formCancel(form){
     return cancel;
 }
 
-export {createBoardElements}
+export {createBoardElements, createSquare}
